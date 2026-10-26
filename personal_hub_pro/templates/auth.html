@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block title %}{{ 'Create account' if mode == 'register' else 'Sign in' }} | Personal Hub Pro{% endblock %}
+{% block content %}<section class="auth-card"><a class="brand auth-brand" href="#"><span class="logo">P</span> Personal Hub Pro</a>
+<p class="eyebrow">YOUR PRIVATE WORKSPACE</p><h1>{{ 'Create your account' if mode == 'register' else 'Welcome back' }}</h1>
+<p class="muted">{{ 'Create a personal account to manage your own records.' if mode == 'register' else 'Sign in to access your personal records.' }}</p>
+<form method="post" class="auth-form"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+{% if mode == 'register' %}<label>Display name<input name="display_name" required maxlength="100" autocomplete="name" placeholder="Your name"></label>{% endif %}
+<label>Email address<input name="email" type="email" required maxlength="254" autocomplete="email" placeholder="you@example.com"></label>
+<label>Password<input name="password" type="password" required minlength="12" maxlength="128" autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}" placeholder="At least 12 characters"></label>
+<button class="primary full" type="submit">{{ 'Create account' if mode == 'register' else 'Sign in' }}</button></form>
+<p class="auth-switch">{% if mode == 'register' %}Already have an account? <a href="{{ url_for('login') }}">Sign in</a>{% else %}New here? <a href="{{ url_for('register') }}">Create an account</a>{% endif %}</p>
+<p class="fineprint">Only store information you have permission to keep. Use a unique password.</p></section>{% endblock %}
